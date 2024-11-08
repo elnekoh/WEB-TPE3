@@ -87,7 +87,17 @@ INSERT INTO `peliculas` (`id`, `titulo`, `director`, `anio`, `descripcion`, `pat
 (30, 'Diecisiete', 'Daniel Sánchez Arévalo', 2019, 'Héctor es un joven de 17 años poco comunicativo que se encuentra internado en un centro de menores. Durante una terapia con perros, establece un vínculo especial con uno de ellos, pero todo cambia cuando la perra es adoptada.', 'diescisiete.jpg', 3),
 (31, 'Parásitos', 'Bong Joon-ho', 2019, 'Tanto Gi Taek como su familia están sin trabajo. Cuando su hijo mayor, Gi Woo, empieza a impartir clases particulares en la adinerada casa de los Park, las dos familias, que tienen mucho en común pese a pertenecer a dos mundos totalmente distintos, entablan una relación de resultados imprevisibles.', 'parasitos.jpg', 3);
 
--- --------------------------------------------------------
+--
+-- Estructura de tabla para la tabla `reseñas`
+--
+
+CREATE TABLE `reseñas` (
+  `id` int(11) NOT NULL,
+  `id_pelicula` int(11) NOT NULL,
+  `id_usuario` int(11) DEFAULT NULL,
+  `comentario` varchar(255) DEFAULT NULL,
+  `puntuacion` int(11) DEFAULT NULL CHECK (`puntuacion` >= 1 and `puntuacion` <= 5)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Estructura de tabla para la tabla `usuarios`
@@ -130,7 +140,15 @@ ALTER TABLE `peliculas`
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `unique_username` (`username`);
+--
+-- Indices de la tabla `reseñas`
+--
+ALTER TABLE `reseñas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_id_pelicula` (`id_pelicula`),
+  ADD KEY `fk_id_usuario` (`id_usuario`);
 
+--
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
@@ -152,7 +170,11 @@ ALTER TABLE `peliculas`
 --
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+--
+-- AUTO_INCREMENT de la tabla `reseñas`
+--
+ALTER TABLE `reseñas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Restricciones para tablas volcadas
 --
@@ -164,6 +186,13 @@ ALTER TABLE `peliculas`
   ADD CONSTRAINT `peliculas_ibfk_1` FOREIGN KEY (`id_genero`) REFERENCES `generos` (`id`);
 COMMIT;
 
+--
+-- Filtros para la tabla `reseñas`
+--
+ALTER TABLE `reseñas`
+  ADD CONSTRAINT `reseñas_ibfk_1` FOREIGN KEY (`id_pelicula`) REFERENCES `peliculas` (`id`),
+  ADD CONSTRAINT `reseñas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
+COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
