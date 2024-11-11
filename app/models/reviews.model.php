@@ -14,4 +14,10 @@ class ReviewsModel extends Model {
         $query->execute([$id]);
         return $query->fetch(PDO::FETCH_OBJ);
     }
+
+    public function insert($id_pelicula, $puntuacion, $comentario, $usuario){
+        $query = $this->db->prepare('INSERT INTO reviews (id_pelicula, puntuacion, comentario, id_usuario) VALUES (?, ?, ?, ?)');
+        $query->execute([$id_pelicula, $puntuacion, $comentario, $usuario]);
+        return $this->db->lastInsertId();
+    }
 }
