@@ -4,6 +4,7 @@ require_once './app/models/peliculas.model.php';
 require_once './app/models/user.model.php';
 require_once './app/views/json.view.php';
 
+define('PAGE_SIZE', 5);
 define('PUNTUACION_MAX', 5);
 define('PUNTUACION_MIN', 1);
 
@@ -23,15 +24,20 @@ class ReviewsApiController {
     public function getAll($req, $res) {
         $orderBy = false;
         $order = false;
+        $page = false;
+
+        if(isset($req->query->page)){
+            $page = $req->query->page;
+        }
         if(isset($req->query->orderBy)){
             $orderBy = $req->query->orderBy;
         }
         if(isset($req->query->order)){
             $order = $req->query->order;
         }
-        $reviews = $this->model->getAll($orderBy, $order);
 
 
+        $reviews = $this->model->getAll($orderBy, $order, $page);
         $this->view->response($reviews);
     }
 

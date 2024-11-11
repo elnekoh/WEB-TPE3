@@ -3,10 +3,11 @@ require_once __DIR__ . '/model.php';
 
 class ReviewsModel extends Model {
     
-    public function getAll($orderBy = false, $order = false){
+    public function getAll($orderBy = false, $order = false, $page = false){
         $sql = 'SELECT * FROM reviews';
 
         if($orderBy){
+            $orderBy = strtolower($orderBy);
             switch($orderBy) {
                 case 'puntuacion':
                     $sql .= ' ORDER BY puntuacion';
@@ -27,20 +28,15 @@ class ReviewsModel extends Model {
         }
 
         if($order){
+            $order = strtolower($order);
             switch($order) {
-                case 'ASC':
+                case 'asc':
                     $sql .= ' ASC';
                     break;
                 case 'ascendente':
                     $sql .= ' ASC';
                     break;
-                case 'menorAMayor':
-                    $sql .= ' ASC';
-                    break;
-                case 'mayorAMenor':
-                    $sql .= ' DESC';
-                    break;
-                case 'DESC':
+                case 'desc':
                     $sql .= ' DESC';
                     break;
                 case 'descendente':
@@ -49,6 +45,9 @@ class ReviewsModel extends Model {
             }
         }
 
+        if($page){
+            $sql .= ' LIMIT '. PAGE_SIZE .' OFFSET ' . ($page - 1) * PAGE_SIZE;
+        }
 
         $query = $this->db->prepare($sql);
         $query->execute();
