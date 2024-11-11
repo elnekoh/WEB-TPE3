@@ -26,13 +26,13 @@ class ReviewsApiController {
         $order = false;
         $page = false;
 
-        if(isset($req->query->page)){
+        if(isset($req->query->page) && is_numeric($req->query->page) && $req->query->page > 0){
             $page = $req->query->page;
         }
         if(isset($req->query->orderBy)){
             $orderBy = $req->query->orderBy;
         }
-        if(isset($req->query->order)){
+        if(isset($req->query->order) ){
             $order = $req->query->order;
         }
 
