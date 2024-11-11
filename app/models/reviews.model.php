@@ -8,4 +8,10 @@ class ReviewsModel extends Model {
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function get($id){
+        $query = $this->db->prepare('SELECT * FROM reviews WHERE id = ?');
+        $query->execute([$id]);
+        return $query->fetch(PDO::FETCH_OBJ);
+    }
 }
