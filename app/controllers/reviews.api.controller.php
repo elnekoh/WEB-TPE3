@@ -21,7 +21,17 @@ class ReviewsApiController {
     }
 
     public function getAll($req, $res) {
-        $reviews = $this->model->getAll();
+        $orderBy = false;
+        $order = false;
+        if(isset($req->query->orderBy)){
+            $orderBy = $req->query->orderBy;
+        }
+        if(isset($req->query->order)){
+            $order = $req->query->order;
+        }
+        $reviews = $this->model->getAll($orderBy, $order);
+
+
         $this->view->response($reviews);
     }
 
