@@ -88,10 +88,10 @@ INSERT INTO `peliculas` (`id`, `titulo`, `director`, `anio`, `descripcion`, `pat
 (31, 'Parásitos', 'Bong Joon-ho', 2019, 'Tanto Gi Taek como su familia están sin trabajo. Cuando su hijo mayor, Gi Woo, empieza a impartir clases particulares en la adinerada casa de los Park, las dos familias, que tienen mucho en común pese a pertenecer a dos mundos totalmente distintos, entablan una relación de resultados imprevisibles.', 'parasitos.jpg', 3);
 
 --
--- Estructura de tabla para la tabla `reseñas`
+-- Estructura de tabla para la tabla `reviews`
 --
 
-CREATE TABLE `reseñas` (
+CREATE TABLE `reviews` (
   `id` int(11) NOT NULL,
   `id_pelicula` int(11) NOT NULL,
   `id_usuario` int(11) DEFAULT NULL,
@@ -141,9 +141,9 @@ ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `unique_username` (`username`);
 --
--- Indices de la tabla `reseñas`
+-- Indices de la tabla `reviews`
 --
-ALTER TABLE `reseñas`
+ALTER TABLE `reviews`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_id_pelicula` (`id_pelicula`),
   ADD KEY `fk_id_usuario` (`id_usuario`);
@@ -173,7 +173,7 @@ ALTER TABLE `usuarios`
 --
 -- AUTO_INCREMENT de la tabla `reseñas`
 --
-ALTER TABLE `reseñas`
+ALTER TABLE `reviews`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Restricciones para tablas volcadas
