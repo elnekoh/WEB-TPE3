@@ -20,4 +20,9 @@ class ReviewsModel extends Model {
         $query->execute([$id_pelicula, $puntuacion, $comentario, $usuario]);
         return $this->db->lastInsertId();
     }
+
+    public function update($id, $id_pelicula, $puntuacion, $comentario, $usuario){
+        $query = $this->db->prepare('UPDATE reviews SET id_pelicula = ?, puntuacion = ?, comentario = ?, id_usuario = ? WHERE id = ?');
+        return $query->execute([$id_pelicula, $puntuacion, $comentario, $usuario, $id]);
+    }
 }
