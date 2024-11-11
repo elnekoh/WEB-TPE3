@@ -17,6 +17,12 @@ class ReviewsModel extends Model {
                 case 'id_usuario':
                     $sql .= ' ORDER BY id_usuario';
                     break;
+                case 'comentario':
+                    $sql .= ' ORDER BY comentario';
+                    break;
+                case 'id':
+                    $sql .= ' ORDER BY id';
+                    break;
             }
         }
 
