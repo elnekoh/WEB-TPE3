@@ -32,6 +32,7 @@
         $payload = $jwt[1]; // $payload (contenido)
         $signature = $jwt[2]; // $signature (firma)
 
+        // hago una firma desde 0 con el header y el payload y el secreto
         $valid_signature = hash_hmac('SHA256', "$header.$payload", JWT_KEY, true);
         $valid_signature = base64_encode($valid_signature);
         $valid_signature = str_replace(['+', '/', '='], ['-', '_', ''], $valid_signature);
@@ -48,6 +49,7 @@
         return $payload;
     }
 
+    // Función para verificar si el token está expirado
     function isTokenExpired ($exp) {
         return $exp < time();
     }

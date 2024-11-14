@@ -14,7 +14,7 @@
         }
 
         public function getToken($req, $res){
-            // obtengo el email y la contraseña desde el header
+            // obtengo el usuario y contraseña desde el header
             $auth_header = $_SERVER['HTTP_AUTHORIZATION']; // "Basic dXN1YXJpbw=="
             $auth_header = explode(' ', $auth_header); // ["Basic", "dXN1YXJpbw=="]
 
@@ -26,15 +26,15 @@
                 return $this->view->response('Los encabezados de autenticación son incorrectos.', 401);
             }
 
-            // Decodificamos el base64
+            // Decodifico el usuario y contraseña que estan en base64
             $user_pass = base64_decode($auth_header[1]); // "usuario:password"
             $user_pass = explode(':', $user_pass); // ["usuario", "password"]
             $pass = $user_pass[1]; // "password"
 
-            // Buscamos El usuario en la base
+            // Busco El usuario en la base
             $user = $this->model->getUserByUsername($user_pass[0]);
 
-            // Chequeamos la contraseña
+            // Checkeo la contraseña y que el usuario exista
             if($user == null || !password_verify($pass, $user->password)) {
                 return $this->view->response("Error en los datos ingresados", 401);
             }
