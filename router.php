@@ -14,7 +14,6 @@
     $router->addRoute('reviews/:id'  ,            'GET',     'ReviewsApiController',   'get'   );
     $router->addRoute('reviews'  ,                'POST',    'ReviewsApiController',   'insert');
     $router->addRoute('reviews/:id'  ,            'PUT',     'ReviewsApiController',   'update');
-    //$router->addRoute('reviews/:id'  ,            'DELETE',  'ReviewsApiController',   'delete');
     
     $router->addRoute('user/token'    ,            'GET',     'UserApiController',   'getToken');
 
