@@ -21,10 +21,6 @@
         return $jwt;
     }
 
-    function decodeJWT($jwt){
-        
-    }
-
     function validateAndDecodeJWT($jwt) {
         $jwt = explode('.', $jwt); // [header, payload, signature]
 
