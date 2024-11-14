@@ -52,12 +52,7 @@ class ReviewsApiController {
     }
 
     public function insert($req, $res){
-        if(!$res->user){
-            return $this->view->response("No autorizado", 401);
-        }
-        if($res->user->role != 'admin'){
-            return $this->view->response("No autorizado", 403);
-        }
+        $this->verifyUser($res);
 
         if (empty($req->body->id_pelicula)) {
             return $this->view->response('Es necesario el id de la pelicula', 400);
@@ -101,14 +96,30 @@ class ReviewsApiController {
         return $this->view->response($review, 201);
     }
 
-    public function update($req, $res){
+    private function verifyUser($res){
         if(!$res->user){
             return $this->view->response("No autorizado", 401);
         }
         if($res->user->role != 'admin'){
             return $this->view->response("No autorizado", 403);
         }
+        if (isTokenExpired($res->user->exp)){
+            return $this->view->response("Token expirado", 401);
+        }
+    }
 
+    public function verifyRequest($req, $res){
+        if (empty($req->body->id_pelicula)) {
+            return $this->view->response('Es necesario el id de la pelicula', 400);
+        }
+
+        if (empty($req->body->puntuacion)) {
+            return $this->view->response('Faltó el puntaje deseado', 400);
+        }
+    }
+
+    public function update($req, $res){
+        $this->verifyUser($res);
         if (empty($req->params->id)) {
             return $this->view->response('Falta el id de la reseña', 400);
         }

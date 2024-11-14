@@ -12,7 +12,7 @@
         $payload = str_replace(['+', '/', '='], ['-', '_', ''], $payload);
 
         // Firma
-        $signature = hash_hmac('sha256', $header . "." . $payload, 'mi1secreto', true);
+        $signature = hash_hmac('sha256', $header . "." . $payload, JWT_KEY, true);
         $signature = base64_encode($signature);
         $signature = str_replace(['+', '/', '='], ['-', '_', ''], $signature);
 
@@ -32,7 +32,7 @@
         $payload = $jwt[1]; // $payload (contenido)
         $signature = $jwt[2]; // $signature (firma)
 
-        $valid_signature = hash_hmac('sha256', $header . "." . $payload, JWT_KEY, true);
+        $valid_signature = hash_hmac('SHA256', "$header.$payload", JWT_KEY, true);
         $valid_signature = base64_encode($valid_signature);
         $valid_signature = str_replace(['+', '/', '='], ['-', '_', ''], $valid_signature);
         
@@ -48,6 +48,6 @@
         return $payload;
     }
 
-    function isTokenExpired ($payload) {
-        return $payload->exp < time();
+    function isTokenExpired ($exp) {
+        return $exp < time();
     }

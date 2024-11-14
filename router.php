@@ -1,15 +1,16 @@
 <?php
     const JWT_KEY = 'Hola12222!!!%';
-    const JWT_EXP = 3600; // 1hs
+    const JWT_EXPIRATION_TIME = 3600; // 1hs
 
     require_once 'libs/router.php';
 
     require_once 'app/controllers/reviews.api.controller.php';
     require_once 'app/controllers/user.api.controller.php';
-    //require_once 'app/middlewares/jwt.auth.middleware.php';
+    require_once 'app/middlewares/jwt.auth.middleware.php';
+    
     $router = new Router();
 
-    //$router->addMiddleware(new JWTAuthMiddleware());
+    $router->addMiddleware(new JWTAuthMiddleware());
 
     #                 endpoint        verbo      controller              método
     $router->addRoute('reviews'      ,            'GET',     'ReviewsApiController',   'getAll');

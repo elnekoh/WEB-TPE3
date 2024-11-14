@@ -45,7 +45,7 @@
                 'username' => $user->username,
                 'role' => $user->role,
                 'iat' => time(),
-                'exp' => time() + 60
+                'exp' => time() + JWT_EXPIRATION_TIME
             ));
 
             return $this->view->response($token);
