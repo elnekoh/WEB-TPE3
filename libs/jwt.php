@@ -21,29 +21,37 @@
         return $jwt;
     }
 
-    function validateJWT($jwt) {
-        $jwt = explode('.', $jwt);
-        if(count($jwt) != 3) {
-            return null;
-        }
-        $header = $jwt[0];
-        $payload = $jwt[1];
-        $signature = $jwt[2];
+    function decodeJWT($jwt){
+        
+    }
 
-        $valid_signature = hash_hmac('sha256', $header . "." . $payload, 'mi1secreto', true);
+    function validateAndDecodeJWT($jwt) {
+        $jwt = explode('.', $jwt); // [header, payload, signature]
+
+        if(count($jwt) != 3) {
+            return false;
+        }
+
+        $header = $jwt[0]; // $header
+        $payload = $jwt[1]; // $payload (contenido)
+        $signature = $jwt[2]; // $signature (firma)
+
+        $valid_signature = hash_hmac('sha256', $header . "." . $payload, JWT_KEY, true);
         $valid_signature = base64_encode($valid_signature);
         $valid_signature = str_replace(['+', '/', '='], ['-', '_', ''], $valid_signature);
-
+        
+        // Verificamos que la firma sea válida
         if($signature != $valid_signature) {
-            return null;
+            return false;
         }
 
-        $payload = base64_decode($payload);
-        $payload = json_decode($payload);
-
-        if($payload->exp < time()) {
-            return null;
-        }
+        // Decodificamos el payload
+        $payload = base64_decode($payload); 
+        $payload = json_decode($payload); 
 
         return $payload;
+    }
+
+    function isTokenExpired ($payload) {
+        return $payload->exp < time();
     }

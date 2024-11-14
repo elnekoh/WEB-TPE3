@@ -1,5 +1,7 @@
 <?php
-    
+    const JWT_KEY = 'Hola12222!!!%';
+    const JWT_EXP = 3600; // 1hs
+
     require_once 'libs/router.php';
 
     require_once 'app/controllers/reviews.api.controller.php';
