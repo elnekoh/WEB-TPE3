@@ -11,7 +11,8 @@
 
 Esta api se conecta a una base de datos diseñada de la siguiente manera:
 
-![bd diagram.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c0f2d58c-5fd1-4384-9bb4-7641aae5e3f9/d92f0942-720b-4fc1-aed7-ac0509a9bca0/bd_diagram.png)
+![bd diagram](https://github.com/user-attachments/assets/b472d60a-0581-492c-bd57-e73f7eaec68b)
+
 
 La api esta diseñada para interactuar principalmente con la tabla “reviews” (reseñas).
 
