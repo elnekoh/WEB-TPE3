@@ -3,7 +3,7 @@
 |  | VERBO | URL |
 | --- | --- | --- |
 | Listar todos las reseñas | GET | /reviews |
-| Listar ordenado por columna a elección | GET | /reviews?OrderBy=:COLUMNA&Order=:ASC/DESC |
+| Listar ordenado por columna a elección | GET | /reviews?orderBy=:COLUMNA&order=:ASC/DESC |
 | Muestra una reseña determinada por su id | GET | /reviews/:ID |
 | Inserta una reseña | POST | /reviews |
 | Modifica una reseña con determinado id | PUT | /reviews/:ID |
