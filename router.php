@@ -11,8 +11,8 @@
     $router = new Router();
 
     $router->addMiddleware(new JWTAuthMiddleware());
-
-    #                 endpoint        verbo      controller              método
+ 
+    #                 endpoint                   verbo         controller              método
     $router->addRoute('reviews'      ,            'GET',     'ReviewsApiController',   'getAll');
     $router->addRoute('reviews/:id'  ,            'GET',     'ReviewsApiController',   'get'   );
     $router->addRoute('reviews'  ,                'POST',    'ReviewsApiController',   'insert');

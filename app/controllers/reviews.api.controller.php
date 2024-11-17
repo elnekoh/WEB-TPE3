@@ -101,12 +101,15 @@ class ReviewsApiController {
             return $this->view->response('No existe la reseña con el id ingresado', 400);
         }
 
-        //verifica que el usuario sea admin
-        if ($res->user->role != 'admin'){
-            //verifica que el usuario sea el dueño de la reseña
-            if ($res->user->id != $review_original->id_usuario) {
+        //verifica que el usuario sea el dueño de la reseña
+        if($res->user->id != $review_original->id_usuario) {
+            //verifica que el usuario sea admin
+            if ($res->user->role != 'admin'){
                 return $this->view->response('No tiene permisos para editar esta reseña', 401);
             }
+
+            //si es admin, nos aseguramos de que no se cambie el usuario
+            $parametros['usuario'] = $review_original->id;
         }
 
         //actualiza la reseña
