@@ -66,7 +66,7 @@ class ReviewsApiController {
         $this->verifyUser($res);
 
         //verifica que los parametros sean correctos
-        $parametros = $this->verify_params($req);
+        $parametros = $this->verify_params($req, $res);
 
         //inserta la reseña
         $id = $this->model->insert($parametros['id_pelicula'], $parametros['puntuacion'], $parametros['comentario'], $parametros['usuario']);
@@ -93,11 +93,20 @@ class ReviewsApiController {
         $id = $req->params->id;
 
         //verifica que los parametros sean correctos
-        $parametros = $this->verify_params($req);
+        $parametros = $this->verify_params($req, $res);
+        $review_original = $this->model->get($id);
 
         // verifica que la reseña exista
-        if (!$this->model->get($id)) {
+        if (!$review_original) {
             return $this->view->response('No existe la reseña con el id ingresado', 400);
+        }
+
+        //verifica que el usuario sea admin
+        if ($res->user->role != 'admin'){
+            //verifica que el usuario sea el dueño de la reseña
+            if ($res->user->id != $review_original->id_usuario) {
+                return $this->view->response('No tiene permisos para editar esta reseña', 401);
+            }
         }
 
         //actualiza la reseña
@@ -109,16 +118,13 @@ class ReviewsApiController {
             return $this->view->response($review);
         }else{
             return $this->view->response("Error al editar la reseña", 500);
-        }    
+        }
     }
 
-    // verifica que el usuario sea admin
+    // verifica que el usuario este "logueado" y que el token no haya expirado
     private function verifyUser($res){
         if(!$res->user){
             return $this->view->response("No autorizado", 401);
-        }
-        if($res->user->role != 'admin'){
-            return $this->view->response("No autorizado", 403);
         }
         if (isTokenExpired($res->user->exp)){
             return $this->view->response("Token expirado", 401);
@@ -126,7 +132,7 @@ class ReviewsApiController {
     }
 
     // Verifica que los parametros que llegan para insert y update sean correctos
-    private function verify_params($req){
+    private function verify_params($req, $res){
         if (empty($req->body->id_pelicula)) {
             return $this->view->response('Es necesario el id de la pelicula', 400);
         }
@@ -151,10 +157,10 @@ class ReviewsApiController {
             $comentario = $req->body->comentario;
         }
 
-        if (!empty($req->body->id_usuario)){
-            $usuario = $req->body->id_usuario;
+        if (!empty($res->id_usuario)){
+            $usuario = $res->id_usuario;
             if (!$this->userModel->getUserById($usuario)) {
-                return $this->view->response('id usuario errónea', 400);
+                return $this->view->response('usuario no existente', 400);
             }
         }
 
