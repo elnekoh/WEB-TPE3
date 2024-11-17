@@ -6,6 +6,7 @@
             $statusText = $this->_requestStatus($status);
             header("HTTP/1.1 $status $statusText");
             echo json_encode($data);
+            die();
         }
 
         private function _requestStatus($code) {
