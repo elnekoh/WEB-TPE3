@@ -16,7 +16,7 @@ Esta api se conecta a una base de datos diseñada de la siguiente manera:
 
 La api esta diseñada para interactuar principalmente con la tabla “reviews” (reseñas).
 
-La idea es que todos puedan listar las reseñas, o ver una en particular, pero solo pueden insertar filas o modificarlas usuarios de rol “admin”
+La idea es que todos los usuarios puedan a travez de filtrados listar las reseñas, o ver una en particular. Solo pueden insertar filas o modificarlas los usuarios de rol “admin”
 
 ### Endpoints (en profundidad)
 
