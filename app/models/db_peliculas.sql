@@ -100,6 +100,30 @@ CREATE TABLE `reviews` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Volcado de datos para la tabla `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `id_pelicula`, `id_usuario`, `comentario`, `puntuacion`) VALUES
+(70, 4, NULL, 'increible', 4),
+(71, 29, 1, 'aburrida', 1),
+(72, 21, 1, 'la mejor', 5),
+(73, 25, 1, 'maso', 3),
+(74, 30, 1, 'goat', 5),
+(75, 17, NULL, 'muy bueno', 4),
+(76, 27, NULL, 'que miedo', 3),
+(77, 23, 1, 'floja', 2),
+(78, 3, NULL, 'no me gusto tanto', 3),
+(79, 14, NULL, 'magnifico', 5),
+(80, 24, 1, 'ta bueno', 4),
+(81, 20, NULL, 'medio medio', 3),
+(82, 31, NULL, 'horrible', 2),
+(83, 1, 1, 'buuuuuuu', 1),
+(84, 26, NULL, 'que lindo', 5),
+(85, 28, NULL, 'casi perfecta', 4),
+(86, 18, 1, 'flojarda', 3),
+(87, 29, NULL, 'aburridisima', 2),
+(88, 22, NULL, 'detestable', 1);
+--
 -- Estructura de tabla para la tabla `usuarios`
 --
 
