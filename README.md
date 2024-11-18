@@ -9,7 +9,7 @@
 | Modifica una reseña con determinado id | PUT | /reviews/:ID |
 | Obtiene token | GET | /user/token |
 
-### Uso de POST/PUT:
+## Uso de POST/PUT:
 
 Para poder crear o modificar una reseña con POST/PUT, es necesario usar un JWT, usando el método de autenticación “Bearer token”.
 
