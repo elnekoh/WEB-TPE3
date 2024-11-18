@@ -9,6 +9,21 @@
 | Modifica una reseña con determinado id | PUT | /reviews/:ID |
 | Obtiene token | GET | /user/token |
 
+### Uso de POST/PUT:
+
+Para poder crear o modificar una reseña con POST/PUT, es necesario usar un JWT, usando el método de autenticación “Bearer token”.
+
+Los campos que son estrictamente necesarios son id_pelicula, y puntuacion, “comentario” no es necesario ya que puede ser null, y el id_usuario no se toma del body, se toma del JWT o de la reseña original en el caso de PUT.
+
+A continuación, un ejemplo de un body para crear una reseña:
+```json
+{
+  "id_pelicula": 1,
+  "comentario": "Lorem ipsum",
+  "puntuacion": 3
+}
+```
+
 Esta api se conecta a una base de datos diseñada de la siguiente manera:
 
 ![bd diagram](https://github.com/user-attachments/assets/b472d60a-0581-492c-bd57-e73f7eaec68b)
