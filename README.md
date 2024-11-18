@@ -28,7 +28,7 @@ Esta api se conecta a una base de datos diseñada de la siguiente manera:
 
 ![bd diagram](https://github.com/user-attachments/assets/b472d60a-0581-492c-bd57-e73f7eaec68b)
 
-
+## Introducción.
 La api esta diseñada para interactuar principalmente con la tabla “reviews” (reseñas).
 
 Se puede obtener un listado de todos elementos de la tabla "reseña" (GET), ver una reseña en particular especificandola por su ID (GET).
