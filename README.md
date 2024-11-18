@@ -55,15 +55,15 @@ Si el usuario tiene el rol "admin" puede modificar reseñas que no son suyas.
     - Muestra una reseña con un determinado id
     - ej: /reviews/2
 - /reviews (POST) (necesita jwt)
-    - inserta una fila. No es necesario ingresar comentario o id_usuario (una reseña sin user es una reseña anonima o de invitado), si o si debe tener una puntuacion y un id_pelicula.
-    - La api no esta pensada para que un usuario regular ingrese reseñas por medio de la api, por eso se toma la libertad de poder modificar o ingresar filas a nombre de otros usuarios, se asume que solo admins pueden hacerlo.
-    - el jwt se autentifica por “bearer”
+    - inserta una fila. No es necesario ingresar comentario, si o si debe tener una puntuacion y un id_pelicula, y el id_usuario se obtiene del jwt, no del body.
+    - el jwt se autentifica por “bearer token”
 - /reviews/:ID (PUT) (necesita jwt)
     - Permite modificar una fila, los parametros obligatorios son los mismo que se usa para insertar, ademas se debe proporcionar el id de la pelicula a modificar en el endpoint.
-    - el jwt se autentifica por “bearer”
+    - un usuario que no tiene rol "admin" solo puede editar reseñas editadas por el mismo, un usuario con rol "admin" puede editar cualquier reseña.
+    - el jwt se autentifica por “bearer token”
     - ej: /reviews/3
 - /user/token
-    - otorga un jwt valido por 1hs
+    - otorga un jwt valido por 1hs.
     - es necesario autenticarse mediante “basic”.
     - usuario de ejemplo:
         - usuario: “webadmin”
